@@ -12,43 +12,43 @@ print (root.filename)
 # Assign the file location to a variable
 video_file = root.filename
 
-# Open a text file in write mode to record data
-notepad = open("{0}.txt".format(video_file), "w")
-
 # Clean up the dialog box 
 root.destroy()
 
-
-# Define listener functions
-
-# on_press works even when held down
-def on_press(key):
-    print('{0} pressed'.format(key))
-
-    if key == Key.right:
-        t = vlc.libvlc_media_player_get_time(player)
-        vlc.libvlc_media_player_set_time(player, t+5000)
-        
-    if key == Key.left:
-        t = vlc.libvlc_media_player_get_time(player)
-        vlc.libvlc_media_player_set_time(player, t-5000)
+# Open a text file with the same name in write mode to record data
+notepad = open("{0}.txt".format(video_file[:video_file.index('.')]), "w")
 
 # Make the media player
 player = vlc.MediaPlayer(video_file)
 
-# on_press works only when a key is released      
+# Define listener functions
+
+# on_press is called even when held down
+def on_press(key):
+    
+    if key == Key.right:
+        t = player.get_time()
+        player.set_time(t + 5000)
+        
+    if key == Key.left:
+        t = player.get_time()
+        player.set_time(t - 5000)
+
+# on_release is only called when the button is released after pressing
 def on_release(key):
-    print('{0} release'.format(key))
+    
     if key == Key.space:
         player.pause()
 
     # for alphanumeric keys use KeyCode as shown below
     if key == KeyCode.from_char("a"):
         t = vlc.libvlc_media_player_get_time(player)
+        print("start - {0}".format(t))
         notepad.write("'{0}',".format(t))
 
     if key == KeyCode.from_char("d"):
         t = vlc.libvlc_media_player_get_time(player)
+        print("end - {0}".format(t))
         notepad.write("'{0}'\n".format(t))
         
     if key == Key.esc:
@@ -64,5 +64,5 @@ player.play()
 with Listener(
         on_press=on_press,
         on_release=on_release) as listener:
-    listener.join()
 
+    listener.join()
