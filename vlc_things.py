@@ -45,11 +45,11 @@ def on_release(key):
     # for alphanumeric keys use KeyCode as shown below
     if key == KeyCode.from_char("a"):
         t = vlc.libvlc_media_player_get_time(player)
-        notepad.write("start {0}\n".format(t))
+        notepad.write("'{0}',".format(t))
 
     if key == KeyCode.from_char("d"):
         t = vlc.libvlc_media_player_get_time(player)
-        notepad.write("end {0}\n".format(t))
+        notepad.write("'{0}'\n".format(t))
         
     if key == Key.esc:
         # Stop listener
