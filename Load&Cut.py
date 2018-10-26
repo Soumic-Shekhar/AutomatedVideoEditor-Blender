@@ -1,4 +1,4 @@
-import bpy, time
+import bpy
 from ast import literal_eval as creatTuple
 
 def frame(frame):
@@ -24,11 +24,11 @@ def cut_vid():
             bpy.ops.sequencer.delete()
 
 if __name__ == '__main__':
-    print("init")
+    print(">>>>>>>>>init<<<<<<<<<")
     bpy.context.area.type = 'SEQUENCE_EDITOR'
     bpy.ops.sequencer.movie_strip_add(filepath="//BlenderVideoEdit(py)/Nas Daily about the student movement in Bangladesh right Now 😰-xgqaOFRP0Qk.mkv", files=[{"name":"Nas Daily about the student movement in Bangladesh right Now 😰-xgqaOFRP0Qk.mkv", "name":"Nas Daily about the student movement in Bangladesh right Now 😰-xgqaOFRP0Qk.mkv"}], relative_path=True, show_multiview=False, frame_start=0, channel=1)
     frame_ms = []
     get_frame_markers()
     cut_vid()
-    print('done')
+    print('>>>>>>>>>done<<<<<<<<<')
 
