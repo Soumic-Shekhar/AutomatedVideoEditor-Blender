@@ -1,3 +1,13 @@
+
+#Etided@ Soumic Shekhar
+#... INSTRUCTIONS
+# >> press: 
+#       a -> mark start
+#       d -> mark end
+#       space -> pause
+#       esc -> exit
+
+#Author@ Muhammad Irfanual Haque 
 from os import path
 import vlc
 from pynput.keyboard import Key, Listener, KeyCode
@@ -7,7 +17,9 @@ from tkinter import *
 # Open a system dialog box to select a video file
 root = Tk()
 root.filename =  filedialog.askopenfilename(title = "Select video file")
+#root.filename =  filedialog.askopenfilename(initialdir = root,title = "Select file",filetypes = (("video files","*.mkv"),("all files","*.*")))
 print (root.filename)
+
 
 # # Assign the file location to a variable
 video_file = root.filename
