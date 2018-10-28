@@ -6,7 +6,7 @@ from ast import literal_eval as creatTuple
 VidfilePath = "//Nas Daily about the student movement in Bangladesh right Now 😰-xgqaOFRP0Qk.mkv" # -> Enter Video file $PATH Here
 TxtfilePath = "/home/soumics/Desktop/Automate_Blender/BlenderVideoEdit(py)/a.txt" # -> Enter marker file $PATH Here
 
-frame_ms = []
+marked_frames = []
 
 def detect_fps_Format(fps): # -> get fps format from blender
     length = len(str((fps)))
@@ -36,18 +36,18 @@ def get_frame_markers(file): # -> Reads the marker txt file and creates a tuple 
 
             for l in line:
 
-                frame_ms.append(creatTuple(l))
+                marked_frames.append(creatTuple(l))
 
 
 def Edit_vid(): # -> Cuts Video at specific marked points
 
-    for x in range((len(frame_ms) - 1), -1, -1): # -> Decriments through the Tuple
+    for x in range((len(marked_frames) - 1), -1, -1): # -> Decriments through the Tuple
 
         # Innificient
-        bpy.ops.sequencer.cut(frame=frame(frame_ms[x][1]), type='SOFT', side='RIGHT')
+        bpy.ops.sequencer.cut(frame=frame(marked_frames[x][1]), type='SOFT', side='RIGHT')
         bpy.ops.sequencer.delete()
         bpy.ops.sequencer.select_active_side(side='LEFT') 
-        bpy.ops.sequencer.cut(frame=frame(frame_ms[x][0]), type='SOFT', side='LEFT')
+        bpy.ops.sequencer.cut(frame=frame(marked_frames[x][0]), type='SOFT', side='LEFT')
     
     # Delete the last Snip
     bpy.ops.sequencer.select_active_side(side='LEFT') 
