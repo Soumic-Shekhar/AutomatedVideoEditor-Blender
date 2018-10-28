@@ -6,9 +6,19 @@ from ast import literal_eval as creatTuple
 VidfilePath = "//Nas Daily about the student movement in Bangladesh right Now 😰-xgqaOFRP0Qk.mkv" # -> Enter Video file $PATH Here
 TxtfilePath = "/home/soumics/Desktop/Automate_Blender/BlenderVideoEdit(py)/a.txt" # -> Enter marker file $PATH Here
 
+def detect_fps_Format(fps): # -> get fps format from blender
+    length = len(str((fps)))
+    # print(length) 
+    if (length <= 3 ):
+        return (fps * 1000)
+    return fps
+        
+
 def frame(frame): # -> Gets Frame Number
-    
-    return int ( int(bpy.context.scene.render.fps)* int(frame) / 1000 ** 2)
+
+    print(frame)
+    print(bpy.context.scene.render.fps)
+    return int (( detect_fps_Format (bpy.context.scene.render.fps) * int(frame)) / 1000 ** 2)
 
 
 def get_frame_markers(file): # -> Reads the marker txt file and creates a tuple from it [NB. Format Specific]
@@ -39,6 +49,13 @@ def cut_vid(): # -> Cuts Video at specific marked points
     # Delete the last Snip
     bpy.ops.sequencer.select_active_side(side='LEFT') 
     bpy.ops.sequencer.delete()
+    # print (bpy.context.sequences) # -> debug
+
+    bpy.context.sequences[4].select = True # -> select the audio file
+    bpy.ops.sequencer.delete()
+
+
+    
 
 if __name__ == '__main__':
 
@@ -47,8 +64,10 @@ if __name__ == '__main__':
 
     bpy.context.area.type = 'SEQUENCE_EDITOR' # -> Invokes Sequence Editor
     bpy.ops.sequencer.movie_strip_add(filepath=VidfilePath, show_multiview=False, frame_start=0, channel=1) # -> Loads Video file
+
     frame_ms = []
     get_frame_markers(TxtfilePath)
+    
     cut_vid()
 
     print('>>>>>>>>>done<<<<<<<<<')
