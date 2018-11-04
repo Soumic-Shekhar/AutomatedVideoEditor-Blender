@@ -3,17 +3,10 @@
 import bpy
 from ast import literal_eval as creatTuple
 
-VidfilePath = "//Nas Daily about the student movement in Bangladesh right Now 😰-xgqaOFRP0Qk.mkv" # -> Enter Video file $PATH Here
-TxtfilePath = "/home/soumics/Desktop/Automate_Blender/BlenderVideoEdit(py)/a.txt" # -> Enter marker file $PATH Here
+VidfilePath = "/home/soumics/Desktop/Automate_Blender/BlenderVideoEdit(py)/Vid_marker/FHD0028.MOV" # -> Enter Video file $PATH Here
+TxtfilePath = "/home/soumics/Desktop/Automate_Blender/BlenderVideoEdit(py)/Vid_marker/FHD0028.txt" # -> Enter marker file $PATH Here
 
 marked_frames = []
-
-def detect_fps_Format(fps): # -> get fps format from blender
-    length = len(str((fps)))
-    # print(length) 
-    if (length <= 3 ):
-        return (fps * 1000)
-    return fps
 
 def frame_length(start, end):
     return (end - start)    
@@ -23,7 +16,7 @@ def frame(frame): # -> Gets Frame Number
 
     # print(frame) # -> debug
     # print(bpy.context.scene.render.fps) # -> debug
-    return int (( detect_fps_Format (bpy.context.scene.render.fps) * int(frame)) / 1000 ** 2)
+    return ((( bpy.context.scene.render.fps / bpy.context.scene.render.fps_base) * int(frame)) / 1000)
 
 
 def get_frame_markers(file): # -> Reads the marker txt file and creates a tuple from it [NB. Format Specific]
